@@ -1,8 +1,17 @@
 import React from 'react'
+import DahsLayout from '../components/DahsLayout'
+import {Outlet} from "react-router-dom"
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+   <div >
+     <DahsLayout >
+        {/* <div>Dashboard</div> */}
+        <Outlet/>
+        
+    </DahsLayout>
+   </div>
+    
   )
 }
 
