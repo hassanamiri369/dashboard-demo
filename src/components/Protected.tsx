@@ -6,13 +6,13 @@ type IProps = {
 }
 
 const Protected = ({children} : IProps) => {
-    const [isAuth , setIsAuth] = useState<boolean>(false)
+    const [isAuth , setIsAuth] = useState<boolean>(true)
 
     const location = useLocation().pathname;
     // const navigate = useNavigate() as any
 
     // return isAuth ? children : <Navigate to={`/login/redirect=${location}`}/>
-    return isAuth ? children : <Navigate to={'/login'} state={setIsAuth}/>
+    return isAuth ? children : <Navigate to={'/SignUp'} state={setIsAuth}/>
 
     // React.useEffect(()=>{
     //     return isAuth ? children : navigate('/login', { state: { isAuth , setIsAuth} }) 
