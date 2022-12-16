@@ -13,24 +13,34 @@ export interface ITasks {
   body : string;
 }
 
+export interface IUser {
+  id : number;
+  name : string;
+  email : string;
+  password : string;
+}
+
+
 interface IState {
   tasks: ITasks[];
   filterTaskState : ITasks[] | [];
-  currentTask: any
+  currentTask: any;
+  userList : IUser[]
 }
 
 
 
 type IActionType =
   | { type: "addTask", payload: ITasks }
-  // | { type: "toggleTodo", payload: ITasks }
   | { type: "removeTask", payload: ITasks[] }
-  // | { type: "completeTask", payload: ITasks[] }
   | { type: "updateMode", payload: ITasks[] }
+  | {type : "currentTask" , payload : ITasks}
+
+  | {type : "addNewUser" , payload : IUser}
+
   | { type: "DoingTask", payload: ITasks[] }
   | { type: "DoneTask", payload: ITasks[] }
   | { type: "AllTask", payload: ITasks[] }
-  | {type : "currentTask" , payload : ITasks}
 
 
 interface ITaskContext {
@@ -38,10 +48,14 @@ interface ITaskContext {
   dispatch: React.Dispatch<IActionType>
   AddTask: (newTask: ITasks) => void
   removeTask: (id: number) => void
-  // completeTask: (item: ITasks, value: string) => void
+
   editTask: (item: ITasks) => void
   editMode :(item :ITasks) => void
+
+  addNewUser : (newUser : IUser) => void
 }
+
+
 export const TaskContext = createContext<ITaskContext>({} as ITaskContext)
 
 
@@ -52,7 +66,11 @@ const initState = {
   tasks: localStorage.getItem("postState") ? JSON.parse(localStorage.getItem("postState") || "") : [],
   filterTaskState : localStorage.getItem("taskFilter") ? JSON.parse(localStorage.getItem("taskFilter") || "") : [],
 
-  currentTask: {}
+  currentTask: {},
+
+  userList : localStorage.getItem("userList") ? JSON.parse(localStorage.getItem("userList") || "") : [],
+
+
 }
 
 
@@ -66,15 +84,21 @@ const reducer = (state: IState, action: IActionType) => {
     case "removeTask":
       return { ...state, tasks: action.payload }
 
-
-    // case "completeTask":
-    //   return { ...state, tasks: action.payload }
     case "currentTask" : 
       return {...state , currentTask : action.payload}
 
 
     case "updateMode":
       return { ...state, tasks: action.payload , currentTask : {} }
+
+
+      // user list state
+      case "addNewUser":
+        return {...state , userList : [...state.userList , action.payload]}
+
+
+
+
 
     case "DoingTask":
       return { ...state, filterTaskState : action.payload}
@@ -105,6 +129,10 @@ const TaskContextProvider = ({ children }: IContextProvider) => {
     localStorage.setItem("taskFilter" , JSON.stringify(state.filterTaskState))
   }, [state.filterTaskState])
 
+  useEffect(() => {
+    localStorage.setItem("userList" , JSON.stringify(state.userList))
+  }, [state.userList])
+
 
 
 
@@ -129,8 +157,15 @@ const TaskContextProvider = ({ children }: IContextProvider) => {
             dispatch({type : "updateMode" , payload : updateTask })
   }
 
+
+    // add new user 
+    const addNewUser = (newUser : IUser)=>{
+      dispatch({ type : "addNewUser" , payload : newUser})
+    }
+
+
   return (
-    <TaskContext.Provider value={{ state, AddTask, removeTask,  editTask, dispatch , editMode}}>
+    <TaskContext.Provider value={{ state, AddTask, removeTask,  editTask, dispatch , editMode , addNewUser}}>
       {children}
     </TaskContext.Provider>
   )
