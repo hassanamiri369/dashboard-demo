@@ -1,5 +1,6 @@
 import React , {useState , useContext } from 'react'
 import { ITasks, TaskContext } from '../context/PostContext'
+import { useNavigate } from 'react-router-dom'
 
 
 const CreatePost = () => {
@@ -11,6 +12,7 @@ const CreatePost = () => {
   const {AddTask  ,state , editTask} =context;
   const {currentTask   } = state
   
+  const navigate = useNavigate()
 
   React.useEffect(()=>{
     if( currentTask.title || currentTask.body ){
@@ -33,8 +35,12 @@ const CreatePost = () => {
     
     if(currentTask.title || currentTask.body){
       editTask(newPost)
+      navigate("/dashboard/AllPostDashboard")
     }else{
       AddTask(newPost)
+      setBody("")
+      setTitle("")
+      navigate("/dashboard/AllPostDashboard")
     }
   }
 
