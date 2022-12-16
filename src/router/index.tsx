@@ -1,32 +1,42 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import Layout from "../components/Layout"
-import Home from "../pages/Home"
+// import Home from "../pages/PostList"
 import About from "../pages/About"
 import Contact from "../pages/Contact"
 import Dashboard from "../pages/Dashboard"
 import ErrorPage from "../pages/ErrorPage"
 import Setting from "../pages/Setting"
 import Post from "../pages/Post"
-import Posts from "../pages/Posts"
+import Posts from "../pages/CreatePost"
 import Users from "../pages/Users"
-import Comments from "../pages/Comments"
+import AllPostDashboard from "../pages/AllPostDashboard"
 import DashStats from "../pages/DashStats"
 import DashError from "../pages/DashError"
 import statsLoader from "../loader/StatsLoader"
 import postLoader from "../loader/PostLoader"
 import Login from "../pages/Login"
 import Protected from "../components/Protected"
+import PostList from "../pages/PostList"
+import CreatePost from "../pages/CreatePost"
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    id: "postList",
+    element:
+      <Layout>
+        <PostList />
+      </Layout>,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/postList/:id",
     id: "home",
     element:
       <Layout>
-        <Home />
+        <Post />
       </Layout>,
-    errorElement: <ErrorPage />
   },
   {
     path: "/about",
@@ -73,23 +83,23 @@ export const router = createBrowserRouter([
           id: "DashboardSetting", 
           element: <Setting /> 
         },
-          { path: "/dashboard/posts",
-           id: "DashboardPosts", 
-           element: <Posts /> ,
-           loader : statsLoader,
+          { path: "/dashboard/createPost",
+           id: "DashboardCreatePost", 
+           element: <CreatePost /> ,
+          //  loader : statsLoader,
           },
-          { path: "/dashboard/posts/:id", 
-          id: "DashboardPost",
-           element: <Post /> ,
-           loader : postLoader,
-          },
+          // { path: "/dashboard/posts/:id", 
+          // id: "DashboardPost",
+          //  element: <Post /> ,
+          //  loader : postLoader,
+          // },
           { path: "/dashboard/users", 
           id: "DashboardUsers",
            element: <Users /> 
           },
-          { path: "/dashboard/comments", 
+          { path: "/dashboard/AllPostDashboard", 
           id: "DashboardComments",
-           element: <Comments /> 
+           element: <AllPostDashboard /> 
           }
         ]
       }
