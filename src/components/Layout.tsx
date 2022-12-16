@@ -10,7 +10,7 @@ const Layout = ({children} : Props) => {
   return (
     <>
       <nav className='flex justify-center gap-4 border-b py-4 shadow-sm'>
-        <Link to={'/'}>Home</Link>
+        <Link to={'/'}>Post List</Link>
         <Link to={'/about'}>About</Link>
         <Link to={'/contact'}>Contact</Link>
         <Link to={'/dashboard'}>Dashboard</Link>
