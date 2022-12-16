@@ -19,6 +19,7 @@ import Login from "../pages/Login"
 import Protected from "../components/Protected"
 import PostList from "../pages/PostList"
 import CreatePost from "../pages/CreatePost"
+import SignUp from "../pages/SignUp"
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ export const router = createBrowserRouter([
     element:
       <Layout>
         <Login/>
+      </Layout>
+  },
+  {
+    path: "/signup",
+    id: "signup",
+    element:
+      <Layout>
+        <SignUp/>
       </Layout>
   },
   {
