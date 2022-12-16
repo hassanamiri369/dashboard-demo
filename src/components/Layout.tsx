@@ -9,7 +9,7 @@ type Props = {
 const Layout = ({children} : Props) => {
   return (
     <>
-      <nav>
+      <nav className='flex justify-center gap-4 border-b py-4 shadow-sm'>
         <Link to={'/'}>Home</Link>
         <Link to={'/about'}>About</Link>
         <Link to={'/contact'}>Contact</Link>
