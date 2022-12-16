@@ -8,8 +8,8 @@ type IProps ={
 
 const Links = [
     {name : "Dashboard" , path : "/dashboard"},
-    {name : "Posts" , path : "/dashboard/posts"},
-    {name : "Comments" , path : "/dashboard/comments"},
+    {name : "createPost" , path : "/dashboard/createPost"},
+    {name : "All Posts" , path : "/dashboard/AllPostDashboard"},
     {name : "users" , path : "/dashboard/users"},
     {name : "Setting" , path : "/dashboard/setting"},
 ]
